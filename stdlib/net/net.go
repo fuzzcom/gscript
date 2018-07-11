@@ -10,9 +10,9 @@ import (
 )
 
 //CheckForInUseTCP is a function that checks all local IPv4 interfaces for to see if something is listening on the specified TCP port will timeout after 3 seconds
-func CheckForInUseTCP(port int) (bool, error) {
+func CheckForInUseTCP(port int64) (bool, error) {
 	timeout, err := time.ParseDuration("50ms")
-	portString := strconv.Itoa(port)
+	portString := strconv.Itoa(int(port))
 	addr := "0.0.0.0:" + portString
 	fmt.Println(addr)
 	conn, err := gonet.DialTimeout("tcp", addr, timeout)
@@ -30,7 +30,7 @@ func CheckForInUseTCP(port int) (bool, error) {
 }
 
 //CheckForInUseUDP will send a UDP packet to the local port and see it gets a response or will timeout
-func CheckForInUseUDP(port int) (bool, error) {
+func CheckForInUseUDP(port int64) (bool, error) {
 	timeout, err := time.ParseDuration("50ms")
 	if err != nil {
 		return false, err

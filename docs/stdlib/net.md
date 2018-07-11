@@ -23,7 +23,7 @@ CheckForInUseTCP(port int) (bool, error)
 
 | Label     | Type         | Description                                |
 |-----------|--------------|--------------------------------------------|
-| `port`    | `int`        | The target port to see if it's in use      |
+| `port`    | `int64`        | The target port to see if it's in use      |
 
 **Returns:**
 
@@ -54,7 +54,7 @@ CheckForInUseUDP(port int) (bool, error)
 
 | Label     | Type         | Description                                |
 |-----------|--------------|--------------------------------------------|
-| `port`    | `int`        | The target port to see if it's in use      |
+| `port`    | `int64`        | The target port to see if it's in use      |
 
 **Returns:**
 
