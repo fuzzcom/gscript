@@ -6,6 +6,7 @@ import (
 	"github.com/gen0cide/gscript/engine"
 	"github.com/gen0cide/gscript/logger"
 	"github.com/gen0cide/gscript/logger/standard"
+	"github.com/robertkrimen/otto"
 )
 
 // Debugger is a wrapper type for handling interactive debug consoles in the genesis engine
@@ -33,6 +34,15 @@ func (d *Debugger) InjectDebugConsole() error {
 	if err != nil {
 		return err
 	}
+
+	d.VM.VM.SetDebuggerHandler(func(o *otto.Otto) {
+		d.VM.SetLogger(d.Logger)
+		d.VM.Paused = true
+		d.runDebugger()
+		d.VM.Paused = false
+		d.VM.SetLogger(d.OldLogger)
+	})
+
 	err = d.VM.VM.Set("SymbolTable", d.vmSymbolTable)
 	if err != nil {
 		return err
